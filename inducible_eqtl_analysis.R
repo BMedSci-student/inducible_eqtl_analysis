@@ -216,7 +216,7 @@ for (i in 1:nrow(geneIDs)) {
   genes_keep[i] <- x
 }
 
-#creates a dataframe of only the being investigated
+#creates a dataframe of only the genes being investigated
 keeps <- c(genes_keep) #isolates data from the stated columns
 logCPM_counts <- full_gt_logCPM_phen_clinical[keeps] #dataframe of the isolated columns 
 
