@@ -1,4 +1,4 @@
-##**Inducible eQTL Analysis**
+<h1>Inducible eQTL Analysis
 
 Pipeline for performing eQTL analysis designed as part of BMedSci student project
 
