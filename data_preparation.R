@@ -18,7 +18,7 @@ raw_genotype_data <- read.table("geno.rs73064425.raw", header = TRUE)
 colnames(raw_genotype_data)[which(names(raw_genotype_data) == "chr3.45859597.C.T_T")] <- "Genotype"
 
 #save the file to ultra with a more accessible name to load in for downstream analysis 
-write.csv(raw_genotype_data, "/home/u034/jmulhollan/3p21.31_expression_analysis/raw_genotype_data.csv", row.names = F)
+write.csv(raw_genotype_data, "/home/u034/bmedsci/3p21.31_expression_analysis/raw_genotype_data.csv", row.names = F)
 
 #-----------------------------------------------------------------------------------------------------------------------------#
 
@@ -30,7 +30,7 @@ write.csv(raw_genotype_data, "/home/u034/jmulhollan/3p21.31_expression_analysis/
 raw_phenotype_data <- read.csv("isaric.overlaprna.csv")
 
 #save the file to ultra with a more accessible name to load in for downstream analysis
-write.csv(raw_phenotype_data, "/home/u034/jmulhollan/3p21.31_expression_analysis/raw_phenotype_data.csv", row.names = F)
+write.csv(raw_phenotype_data, "/home/u034/bmedsci/3p21.31_expression_analysis/raw_phenotype_data.csv", row.names = F)
 
 #-----------------------------------------------------------------------------------------------------------------------------#
 
@@ -46,7 +46,7 @@ raw_gene_count_data$isaric_sample_id
 raw_gene_count_data$isaric_sample_id <- tolower(raw_gene_count_data$isaric_sample_id)
 
 #save the file to ultra with a more accessible name to load in for downstream analysis
-write.csv(raw_gene_count_data, "/home/u034/jmulhollan/3p21.31_expression_analysis/raw_gene_count_data.csv", row.names = F)
+write.csv(raw_gene_count_data, "/home/u034/bmedsci/3p21.31_expression_analysis/raw_gene_count_data.csv", row.names = F)
 
 #-----------------------------------------------------------------------------------------------------------------------------#
 
@@ -55,11 +55,11 @@ write.csv(raw_gene_count_data, "/home/u034/jmulhollan/3p21.31_expression_analysi
 #BRIEF: combine genotype, phenotype and RNA seq data
 
 #genotype
-raw_genotype_data <- read.csv("/home/u034/jmulhollan/3p21.31_expression_analysis/raw_genotype_data.csv")
+raw_genotype_data <- read.csv("/home/u034/bmedsci/3p21.31_expression_analysis/raw_genotype_data.csv")
 #phenotype
-raw_phenotype_data <- read.csv("/home/u034/jmulhollan/3p21.31_expression_analysis/raw_phenotype_data.csv")
+raw_phenotype_data <- read.csv("/home/u034/bmedsci/3p21.31_expression_analysis/raw_phenotype_data.csv")
 #RNA_seq
-raw_gene_count_data <- read.csv("/home/u034/jmulhollan/3p21.31_expression_analysis/raw_gene_count_data.csv")
+raw_gene_count_data <- read.csv("/home/u034/bmedsci/3p21.31_expression_analysis/raw_gene_count_data.csv")
 
 #merge these dataframes centralising them to Isaric ID (IID)
 gt_phen <- merge(raw_genotype_data, raw_phenotype_data, by.x = "IID", by.y = "X")
@@ -74,12 +74,12 @@ gt_phen_counts[duplicated(gt_phen_counts$IID),] #shows duplicated values in gen_
 full_gt_phen_counts <- gt_phen_counts[!duplicated(gt_phen_counts$IID),]
 
 #save the file to ultra with a more accessible name to load in for downstream analysis
-write.csv(full_gt_phen_counts, "/home/u034/jmulhollan/3p21.31_expression_analysis/full_gt_phen_counts.csv", row.names = FALSE)
+write.csv(full_gt_phen_counts, "/home/u034/bmedsci/3p21.31_expression_analysis/full_gt_phen_counts.csv", row.names = FALSE)
 
 #to create a succinct dataframe containing ID, genotype and genecount files
 keeps <- c("IID", "Genotype", "gene_count_file") #isolates data from the stated columns
 ID_gt_genecounts <- full_gt_phen_counts[keeps] #dataframe of the isolated columns 
-write.csv(ID_gt_genecounts, "/home/u034/jmulhollan/3p21.31_expression_analysis/ID_gt_genecounts.csv", row.names = F)
+write.csv(ID_gt_genecounts, "/home/u034/bmedsci/3p21.31_expression_analysis/ID_gt_genecounts.csv", row.names = F)
 
 #-----------------------------------------------------------------------------------------------------------------------------#
 
@@ -88,9 +88,9 @@ write.csv(ID_gt_genecounts, "/home/u034/jmulhollan/3p21.31_expression_analysis/I
 #BRIEF: create progression to ventilatory support or death variable in ISARIC case report data
 
 #load in case report files, data is split between three files
-ccp_data <- read.csv("/home/u034/jmulhollan/3p21.31_expression_analysis/ccp_data.csv")
-topline <- read.csv("/home/u034/jmulhollan/3p21.31_expression_analysis/topline.csv")
-outcome <- read.csv("/home/u034/jmulhollan/3p21.31_expression_analysis/outcome.csv")
+ccp_data <- read.csv("/home/u034/bmedsci/3p21.31_expression_analysis/ccp_data.csv")
+topline <- read.csv("/home/u034/bmedsci/3p21.31_expression_analysis/topline.csv")
+outcome <- read.csv("/home/u034/bmedsci/3p21.31_expression_analysis/outcome.csv")
 
 #join the death variable from topline
 ccp_data = ccp_data %>%
@@ -133,6 +133,6 @@ ccp_data <- ccp_data %>%
 ccp_data <- as.data.frame(ccp_data)
 
 #save the file to ultra with a more accessible name to load in for downstream analysis
-write.csv(ccp_data,"/home/u034/jmulhollan/3p21.31_expression_analysis/illness_severity.csv", row.names = F)
+write.csv(ccp_data,"/home/u034/bmedsci/3p21.31_expression_analysis/illness_severity.csv", row.names = F)
 
 #-----------------------------------------------------------------------------------------------------------------------------#
