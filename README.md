@@ -1,6 +1,6 @@
 # Inducible eQTL Analysis
 
-Pipeline for performing eQTL analysis designed as part of BMedSci student project
+R pipeline for performing eQTL analysis designed as part of BMedSci student project.
 
 Access to inidvidual level RNA-seq data is provided for collaborators of ISARIC 4C, https://isaric4c.net/ 
 
