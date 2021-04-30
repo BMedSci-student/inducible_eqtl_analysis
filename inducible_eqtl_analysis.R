@@ -17,9 +17,9 @@ library("ggplot2")
 #BRIEF: exclusion of patients meeting exclusion criteria
 
 #file containing genotype, phenotype, ISARIC case report data for each patient
-full_gt_phen_counts <- read.csv("/home/u034/jmulhollan/3p21.31_expression_analysis/full_gt_phen_counts.csv")
+full_gt_phen_counts <- read.csv("/home/u034/bmedsci/3p21.31_expression_analysis/full_gt_phen_counts.csv")
 #file containing ISARIC case report data
-clinical_data <- read.csv("/home/u034/jmulhollan/3p21.31_expression_analysis/illness_severity.csv")
+clinical_data <- read.csv("/home/u034/bmedsci/3p21.31_expression_analysis/illness_severity.csv")
 
 #EXCLUDE PATIENTS FOR WHOM GENOTYPE AT THE LEAD SNP LOCATION COULD NOT BE CALLED WITH GREATER THAN 90% PROBABILITY
 full_gt_phen_counts <- full_gt_phen_counts %>% drop_na(Genotype)
@@ -40,7 +40,7 @@ str(setdiff(IDs,clinical_data$subjid))
 full_gt_phen_clinical <- merge(clinical_data, full_gt_phen_counts, by.x = 'subjid', by.y = 'canonical_isaric_id')
 
 #save the file to ultra with a more accessible name to load in for downstream analysis
-write.csv(full_gt_phen_clinical,"/home/u034/jmulhollan/3p21.31_expression_analysis/full_gt_phen_clinical.csv", row.names = F)
+write.csv(full_gt_phen_clinical,"/home/u034/bmedsci/3p21.31_expression_analysis/full_gt_phen_clinical.csv", row.names = F)
 #-----------------------------------------------------------------------------------------------------------------------------#
 
 #02 IMPORT SALMON TRANSCRIPT COUNTS####
@@ -48,7 +48,7 @@ write.csv(full_gt_phen_clinical,"/home/u034/jmulhollan/3p21.31_expression_analys
 #BRIEF: salmon transcript counts are imported
 
 #file required for gene file names
-full_gt_phen_clinical <- read.csv("/home/u034/jmulhollan/3p21.31_expression_analysis/full_gt_phen_clinical.csv")
+full_gt_phen_clinical <- read.csv("/home/u034/bmedsci/3p21.31_expression_analysis/full_gt_phen_clinical.csv")
 
 #obtain filenames of Salmon files
 gene_count_file_names <- full_gt_phen_clinical$gene_count_file
@@ -126,7 +126,7 @@ logcpm <- calculateCPM(se, use.offsets = TRUE, log = TRUE)
 
 #save the file to ultra with a more accessible name to load in for downstream analysis
 logCPM_df <- as.data.frame(t(logcpm))
-write.csv(logCPM_df,"/home/u034/jmulhollan/3p21.31_expression_analysis/logCPM_df.csv", row.names = F)
+write.csv(logCPM_df,"/home/u034/bmedsci/3p21.31_expression_analysis/logCPM_df.csv", row.names = F)
 
 #-----------------------------------------------------------------------------------------------------------------------------#
 
@@ -134,15 +134,15 @@ write.csv(logCPM_df,"/home/u034/jmulhollan/3p21.31_expression_analysis/logCPM_df
 
 #BRIEF: data containing genotype and clinical characteristic data is merged with the log normalised gene count data
 
-full_gt_phen_clinical <- read.csv("/home/u034/jmulhollan/3p21.31_expression_analysis/full_gt_phen_clinical.csv")
-logCPM_df <- read.csv("/home/u034/jmulhollan/3p21.31_expression_analysis/logCPM_df.csv")
+full_gt_phen_clinical <- read.csv("/home/u034/bmedsci/3p21.31_expression_analysis/full_gt_phen_clinical.csv")
+logCPM_df <- read.csv("/home/u034/bmedsci/3p21.31_expression_analysis/logCPM_df.csv")
 
 #merge the two datasets
 full_gt_logCPM_phen_clinical <- cbind(full_gt_phen_clinical, logCPM_df)
 str(full_gt_logCPM_phen_clinical)
 
 #save the file to ultra with a more accessible name to load in for downstream analysis
-write.csv(full_gt_logCPM_phen_clinical,"/home/u034/jmulhollan/3p21.31_expression_analysis/full_gt_logCPM_phen_clinical.csv", row.names = F)
+write.csv(full_gt_logCPM_phen_clinical,"/home/u034/bmedsci/3p21.31_expression_analysis/full_gt_logCPM_phen_clinical.csv", row.names = F)
 
 #-----------------------------------------------------------------------------------------------------------------------------#
 
@@ -151,7 +151,7 @@ write.csv(full_gt_logCPM_phen_clinical,"/home/u034/jmulhollan/3p21.31_expression
 #BRIEF: linear regression of gene expression on patient genotype 
 
 #load in data
-full_gt_logCPM_phen_clinical <- read.csv("/home/u034/jmulhollan/3p21.31_expression_analysis/full_gt_logCPM_phen_clinical.csv")
+full_gt_logCPM_phen_clinical <- read.csv("/home/u034/bmedsci/3p21.31_expression_analysis/full_gt_logCPM_phen_clinical.csv")
 
 #COVARIATES
 #AGE
@@ -198,7 +198,7 @@ for (row in 1:nrow(geneIDs)) {
 
 #BRIEF: calculates correlation for each gene relative to all other genes in the sample and plots it on a heatmap
 #load in data
-full_gt_logCPM_phen_clinical <- read.csv("/home/u034/jmulhollan/3p21.31_expression_analysis/full_gt_logCPM_phen_clinical.csv")
+full_gt_logCPM_phen_clinical <- read.csv("/home/u034/bmedsci/3p21.31_expression_analysis/full_gt_logCPM_phen_clinical.csv")
 
 genenames <- c("CCR2", "FYCO1", "CXCR6", "CCR3", 
                "LIMD1", "SACM1L", "SLC6A20",
@@ -250,7 +250,7 @@ rpng.off()
 #BRIEF: view gene expression summary statistics for individual genes and plot a boxplot of expression
 
 #load in data
-full_gt_logCPM_phen_clinical <- read.csv("/home/u034/jmulhollan/3p21.31_expression_analysis/full_gt_logCPM_phen_clinical.csv")
+full_gt_logCPM_phen_clinical <- read.csv("/home/u034/bmedsci/3p21.31_expression_analysis/full_gt_logCPM_phen_clinical.csv")
 
 #Enter gene in "______"
 boxplotgene <- "CCR3" #manually input gene name here
