@@ -90,22 +90,22 @@ txi <- tximport(files, type = "salmon", tx2gene = tx2gene)
 normMat <- txi$length
 cts <- txi$counts
 
-# Obtaining per-observation scaling factors for length, adjusted to avoid
-# changing the magnitude of the counts
+# To obtain per-observation scaling factors for length, adjusted to prevent
+# altering the magnitude of counts
 normMat <- normMat/exp(rowMeans(log(normMat)))
 normCts <- cts/normMat
 
 #USE TMM NORMALISATION TO CORRECT FOR LIBRARY SIZE AND COMPOSITION
-# Computing effective library sizes from scaled counts, to account for
-# composition biases between samples
+# Computes effective library sizes from scaled counts, to account for
+# inter-sample composition bias
 eff.lib <- calcNormFactors(normCts) * colSums(normCts)
 
-# Combining effective library sizes with the length factors, and calculating
+# Combines effective library sizes with length factors, and calculates
 # offsets
 normMat <- sweep(normMat, 2, eff.lib, "*")
 normMat <- log(normMat)
 
-#to get group (genotype) for DGEList
+#to set group (genotype) for DGEList
 genotype <- full_gt_phen_clinical$Genotype
 group <- genotype
 
