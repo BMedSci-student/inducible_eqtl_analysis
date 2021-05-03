@@ -241,8 +241,6 @@ heatmap.2(x = res, col = col, margins=c(7,7),
           key.xlab = "Correlation of log2CPM", key.title = "Key", keysize = 1.4,
           cexRow = 1.4, cexCol = 1.4)
 
-rpng.off()
-
 #-----------------------------------------------------------------------------------------------------------------------------#
 
 #07 GENE EXPRESSION FOR INDIVDUAL GENE ####
